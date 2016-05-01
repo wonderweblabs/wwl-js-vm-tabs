@@ -1,12 +1,13 @@
 {
   "name": "wwl-js-vm-tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "lib/index.coffee",
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js --require coffee-script/register build",
     "watch": "./node_modules/gulp/bin/gulp.js --require coffee-script/register watch",
-    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js",
+    "test-ci": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "author": {
     "name": "wonderweblabs",
