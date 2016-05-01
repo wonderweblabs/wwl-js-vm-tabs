@@ -1,0 +1,3 @@
+%cmi-tabs( no-slide )
+  - @getTabs().forEach (tab) ->
+    %cmi-tab( data-model-id="#{tab.id}" )= tab.name
