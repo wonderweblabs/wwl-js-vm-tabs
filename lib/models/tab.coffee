@@ -10,6 +10,7 @@ module.exports = class Tab extends require('backbone').Model
     viewId:       null
     viewClass:    null
     view:         null
+    errors:       []
 
   initialize: (attrs, options = {}) ->
     unless attrs.view && _.isObject(attrs.view)
