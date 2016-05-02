@@ -29,6 +29,7 @@ domready ->
           view: new (require('./test_view'))({ viewModule: vm }),
           title:    'Tab 1'
           position: 0
+          errors: 4
         })
 
         model.on 'view:beforeRender', ->          console.log 'view:beforeRender'
@@ -45,6 +46,7 @@ domready ->
           view: new (require('./test_view'))({ viewModule: vm }),
           title:    'Tab 2'
           position: 10
+          errors: 2
         })
 
         model = window.vm.addTab({
@@ -52,6 +54,7 @@ domready ->
           title:    'Tab 3'
           position: 20
           disabled: true
+          errors: 55
         })
 
         model = window.vm.addTab({
