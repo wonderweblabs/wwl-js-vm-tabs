@@ -12,6 +12,8 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     'click @ui.tabs': 'onTabClick'
 
   templateHelpers: =>
+    getViewCid: =>
+      @cid
     getTabs: =>
       @collection.map (t) ->
         id:     t.cid

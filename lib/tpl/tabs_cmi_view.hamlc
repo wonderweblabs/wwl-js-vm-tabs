@@ -1,5 +1,5 @@
 %cmi-tabs( no-slide )
-  - @getTabs().forEach (tab) ->
+  - @getTabs().forEach (tab, cid) ->
     - if tab.badge
-      %paper-badge( for="#{tab.id}" label="#{tab.badge}" )
-    %cmi-tab( data-model-id="#{tab.id}", id="#{tab.id}" )= tab.name
+      %paper-badge( for="tab-#{cid}-#{tab.id}" label="#{tab.badge}" )
+    %cmi-tab( data-model-id="#{tab.id}", id="tab-#{cid}-#{tab.id}" )= tab.name
