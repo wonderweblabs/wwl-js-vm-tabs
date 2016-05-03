@@ -27,9 +27,11 @@ domready ->
         window.vm = vm
         model = window.vm.addTab({
           view: new (require('./test_view'))({ viewModule: vm }),
-          title:    'Tab 1'
-          position: 0
-          errors: 4
+          title:      'Tab 1'
+          position:   0
+          errors:     4
+          viewClass:  'view-class'
+          viewId:     'view-id'
         })
 
         model.on 'view:beforeRender', ->          console.log 'view:beforeRender'

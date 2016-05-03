@@ -16,14 +16,17 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
       @cid
     getTabs: =>
       @collection.map (t) ->
-        id:     t.cid
-        name:   t.get('title')
-        badge:  t.get('errors')
+        id:         t.cid
+        name:       t.get('title')
+        badge:      t.get('errors')
+        viewClass:  t.get('viewClass')
+        viewId:     t.get('viewId')
 
   initialize: (options) ->
     super(options)
 
     @cmiTabsOptions = _.extend(@getCmiTabsOptionDefaults(), (options.cmiTabsOptions || {}))
+    @cmiTabsAttributesOptions = _.extend(@getCmiTabsAttributes(), (options.cmiTabsAttributesOptions || {}))
 
     @listenTo @collection, 'update',            @render
     @listenTo @collection, 'reset',             @render
@@ -40,6 +43,7 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
 
   onRender: =>
     @setCmiTabValues()
+    @.$el.addClass(@_attachTabsAttributes())
 
   onTabClick: (event) =>
     id = event.currentTarget.getAttribute('data-model-id')
@@ -75,6 +79,10 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     noBar:    false
     noSlide:  false
 
+  getCmiTabsAttributes: ->
+    cmiTabsClassAttr: ''
+    cmiTabsIdAttr:    ''
+
 
   # ---------------------------------------------
   # private
@@ -88,4 +96,6 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     domEl.removeOwnKeyBindings() if _.isFunction(domEl.removeOwnKeyBindings)
     domEl.remove() if _.isFunction(domEl.remove)
 
-
+  _attachTabsAttributes: ->
+    @.$el.addClass(@cmiTabsAttributesOptions.cmiTabsClassAttr = "class-value")
+    @.$el.attr('id', @cmiTabsAttributesOptions.cmiTabsIdAttr = "id-value")
