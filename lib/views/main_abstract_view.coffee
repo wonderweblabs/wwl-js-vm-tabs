@@ -9,7 +9,6 @@ module.exports = class MainAbstractView extends require('backbone.marionette').L
   initialize: (options) ->
     @collection     = options.collection
     @cmiTabsOptions = options.cmiTabsOptions
-    @cmiTabsContentAttributesOptions = options.cmiTabsContentAttributesOptions
 
   getTabsViewClass: =>
     throw 'Implement #getTabsViewClass'
@@ -21,5 +20,4 @@ module.exports = class MainAbstractView extends require('backbone.marionette').L
     }))
     @getRegion('tabContents').show(new (require('./tab_contents_view'))({
       collection: @collection
-      cmiTabsContentAttributesOptions: @cmiTabsContentAttributesOptions
     }))

@@ -12,16 +12,13 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
   modelEvents:
     'change:active': 'onChangeActive'
 
-  initialize: (options) ->
-    super(options)
-
-    @cmiTabsContentAttributesOptions = _.extend(@getCmiTabsAttributes(), (options.cssClassAttr || {}))
-
   onRender: =>
     @getRegion('tabContent').show(@model.get('view'), { preventDestroy: true })
 
     @_updateCssClasses()
+
     @_attachTabsAttributes()
+
 
   onChangeActive: =>
     @_updateCssClasses()
@@ -35,10 +32,6 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
   # @see _clearRegion
   render: =>
     @_clearRegion() && super()
-
-  getCmiTabsAttributes: ->
-    cmiTabsClassAttr: ''
-    cmiTabsIdAttr: ''
 
   # ---------------------------------------------
   # private
@@ -63,5 +56,4 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
 
   # @nodoc
   _attachTabsAttributes: ->
-    @.$el.addClass(@cmiTabsContentAttributesOptions.cmiTabsClassAttr = "class-value")
-    @.$el.attr('id', @cmiTabsContentAttributesOptions.cmiTabsIdAttr = "id-value")
+    @.$el.addClass(@model.get('viewClass'))
