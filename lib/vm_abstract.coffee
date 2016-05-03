@@ -18,5 +18,4 @@ module.exports = class VmAbstract extends require('wwl-js-vm').VM
     _.extend(super(), {
       collection:     @getCollection()
       cmiTabsOptions: @options.cmiTabsOptions || {}
-      cmiTabsAttributesOptions: @options.cmiTabsAttributesOptions || {}
     })
