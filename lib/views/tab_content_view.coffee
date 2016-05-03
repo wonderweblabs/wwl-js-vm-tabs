@@ -16,9 +16,7 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
     @getRegion('tabContent').show(@model.get('view'), { preventDestroy: true })
 
     @_updateCssClasses()
-
     @_attachTabsAttributes()
-
 
   onChangeActive: =>
     @_updateCssClasses()
@@ -57,3 +55,4 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
   # @nodoc
   _attachTabsAttributes: ->
     @.$el.addClass(@model.get('viewClass'))
+    @.$el.attr('id', @model.get('viewId'))
