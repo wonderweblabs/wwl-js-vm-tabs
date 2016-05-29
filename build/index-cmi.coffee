@@ -12,6 +12,8 @@ domready ->
     config:
       getDefaultVMConfig: ->
         context: new (wwlContext)({ root: true })
+        classValue: "classValue"
+        idValue:    "idValue"
         # cmiTabsOptions:
         #   # noInk: true
         #   # noBar: true
@@ -27,8 +29,11 @@ domready ->
         window.vm = vm
         model = window.vm.addTab({
           view: new (require('./test_view'))({ viewModule: vm }),
-          title:    'Tab 1'
-          position: 0
+          title:      'Tab 1'
+          position:   0
+          errors:     4
+          viewClass:  'view-class-1'
+          viewId:     'view-id-1'
         })
 
         model.on 'view:beforeRender', ->          console.log 'view:beforeRender'
@@ -43,22 +48,30 @@ domready ->
 
         model = window.vm.addTab({
           view: new (require('./test_view'))({ viewModule: vm }),
-          title:    'Tab 2'
-          position: 10
+          title:      'Tab 2'
+          position:   10
+          errors:     2
+          viewClass:  'view-class-2'
+          viewId:     'view-id-2'
         })
 
         model = window.vm.addTab({
           view: new (require('./test_view'))({ viewModule: vm }),
-          title:    'Tab 3'
-          position: 20
-          disabled: true
+          title:      'Tab 3'
+          position:   20
+          disabled:   true
+          errors:     55
+          viewClass:  'view-class-3'
+          viewId:     'view-id-3'
         })
 
         model = window.vm.addTab({
           view: new (require('./test_view'))({ viewModule: vm }),
-          title:    'X'
-          active:   true
-          position: 1
+          title:      'X'
+          active:     true
+          position:   1
+          viewClass:  'view-class-4'
+          viewId:     'view-id-4'
         })
 
     }, { vmPrototype: require('../lib/vm_cmi') })

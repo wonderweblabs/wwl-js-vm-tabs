@@ -1,3 +1,5 @@
+_ = require('underscore')
+
 module.exports = class TabContentView extends require('backbone.marionette').LayoutView
 
   template: require('../tpl/tab_content_view.hamlc')
@@ -8,15 +10,27 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
     tabContent: '> .tab-content'
 
   modelEvents:
-    'change:active': 'onChangeActive'
+    'change:active':    'onChangeActive'
+    'change:viewClass': 'onChangeViewClass'
+    'change:viewId':    'onChangeViewId'
 
   onRender: =>
     @getRegion('tabContent').show(@model.get('view'), { preventDestroy: true })
 
     @_updateCssClasses()
+    @_attachTabsAttributes()
 
   onChangeActive: =>
     @_updateCssClasses()
+
+  onChangeViewClass: (model) =>
+    previousClass = model.previousAttributes().viewClass
+    @.$el.removeClass(previousClass) if previousClass?
+
+    @_attachTabsAttributes()
+
+  onChangeViewId: =>
+    @_attachTabsAttributes()
 
   # @override
   # @see _clearRegion
@@ -27,7 +41,6 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
   # @see _clearRegion
   render: =>
     @_clearRegion() && super()
-
 
   # ---------------------------------------------
   # private
@@ -49,3 +62,8 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
   # @nodoc
   _updateCssClasses: ->
     @.$el.toggleClass('tab-content-container-active', @model.isActive())
+
+  # @nodoc
+  _attachTabsAttributes: ->
+    @.$el.addClass(@model.get('viewClass'))
+    @.$el.attr('id', @model.get('viewId'))

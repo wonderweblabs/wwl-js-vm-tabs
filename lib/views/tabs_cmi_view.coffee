@@ -12,10 +12,15 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     'click @ui.tabs': 'onTabClick'
 
   templateHelpers: =>
+    getViewCid: =>
+      @cid
     getTabs: =>
       @collection.map (t) ->
-        id:     t.cid
-        name:   t.get('title')
+        id:         t.cid
+        name:       t.get('title')
+        badge:      t.get('errors')
+        viewClass:  t.get('viewClass')
+        viewId:     t.get('viewId')
 
   initialize: (options) ->
     super(options)
@@ -25,6 +30,7 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     @listenTo @collection, 'update',            @render
     @listenTo @collection, 'reset',             @render
     @listenTo @collection, 'sort',              @render
+    @listenTo @collection, 'change:errors',     @render
     @listenTo @collection, 'change:active',     @onChangeActiveOrDisabled
     @listenTo @collection, 'change:disabled',   @onChangeActiveOrDisabled
 
@@ -42,6 +48,7 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     return unless id
 
     model = @collection.get(id)
+
     model.set('active', true) if model
 
   setCmiTabValues: ->
@@ -60,7 +67,6 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
       HTMLImports.whenReady =>
         domEl = @ui.tabBar[0]
 
-        console.log @cmiTabsOptions
         domEl.selected  = "#{selectedIndex}"
         domEl.noInk     = @cmiTabsOptions.noInk == true
         domEl.noBar     = @cmiTabsOptions.noBar == true
@@ -70,6 +76,10 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     noInk:    false
     noBar:    false
     noSlide:  false
+
+  getCmiTabsAttributes: ->
+    cmiTabsClassAttr: ''
+    cmiTabsIdAttr:    ''
 
 
   # ---------------------------------------------
@@ -83,5 +93,3 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
 
     domEl.removeOwnKeyBindings() if _.isFunction(domEl.removeOwnKeyBindings)
     domEl.remove() if _.isFunction(domEl.remove)
-
-
