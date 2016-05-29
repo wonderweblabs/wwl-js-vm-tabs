@@ -12,10 +12,13 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     'click @ui.tabs': 'onTabClick'
 
   templateHelpers: =>
+    getViewCid: =>
+      @cid
     getTabs: =>
       @collection.map (t) ->
         id:     t.cid
         name:   t.get('title')
+        badge:  t.get('errors')
 
   initialize: (options) ->
     super(options)
@@ -25,6 +28,7 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     @listenTo @collection, 'update',            @render
     @listenTo @collection, 'reset',             @render
     @listenTo @collection, 'sort',              @render
+    @listenTo @collection, 'change:errors',     @render
     @listenTo @collection, 'change:active',     @onChangeActiveOrDisabled
     @listenTo @collection, 'change:disabled',   @onChangeActiveOrDisabled
 
@@ -42,6 +46,7 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
     return unless id
 
     model = @collection.get(id)
+
     model.set('active', true) if model
 
   setCmiTabValues: ->

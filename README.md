@@ -157,3 +157,9 @@ If you want to have a marionette-only implementation, you would require the foll
 require('wwl-js-vm-tabs/lib/vm')
 ```
 
+##How to contribute
+
+1. Check at first your node version. (See also travis.yml)
+2. Run ```npm install```
+3. For serve, just go inside the build folder and run the serve command.
+
