@@ -60,7 +60,6 @@ module.exports = class TabsCmiView extends require('backbone.marionette').ItemVi
       HTMLImports.whenReady =>
         domEl = @ui.tabBar[0]
 
-        console.log @cmiTabsOptions
         domEl.selected  = "#{selectedIndex}"
         domEl.noInk     = @cmiTabsOptions.noInk == true
         domEl.noBar     = @cmiTabsOptions.noBar == true
