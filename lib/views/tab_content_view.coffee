@@ -10,7 +10,9 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
     tabContent: '> .tab-content'
 
   modelEvents:
-    'change:active': 'onChangeActive'
+    'change:active':    'onChangeActive'
+    'change:viewClass': 'onChangeViewClass'
+    'change:viewId':    'onChangeViewId'
 
   onRender: =>
     @getRegion('tabContent').show(@model.get('view'), { preventDestroy: true })
@@ -20,6 +22,15 @@ module.exports = class TabContentView extends require('backbone.marionette').Lay
 
   onChangeActive: =>
     @_updateCssClasses()
+
+  onChangeViewClass: (model) =>
+    previousClass = model.previousAttributes().viewClass
+    @.$el.removeClass(previousClass) if previousClass?
+
+    @_attachTabsAttributes()
+
+  onChangeViewId: =>
+    @_attachTabsAttributes()
 
   # @override
   # @see _clearRegion

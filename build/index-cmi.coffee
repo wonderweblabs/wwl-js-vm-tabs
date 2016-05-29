@@ -13,11 +13,11 @@ domready ->
       getDefaultVMConfig: ->
         context: new (wwlContext)({ root: true })
         classValue: "classValue"
-        idValue: "idValue"
+        idValue:    "idValue"
         # cmiTabsOptions:
-          # noInk: true
-          # noBar: true
-          # noSlide: true
+        #   # noInk: true
+        #   # noBar: true
+        #   # noSlide: true
 
     vmConfig: _.extend({
 
